@@ -1,7 +1,7 @@
 printf:
 
 
-
+# receives a vector and it's size and prints it
 imprimeVetor:
     addi $sp, $sp, -16
     sw $ra, 0($sp)
@@ -26,8 +26,8 @@ imprimeVetor:
         li $t3, 100
         sb $a1, 1($t3)
         jal printf
-        addi $t1, $t1, 1
-        bgt $t1, $s1, fim_for
+        addi $t0, $t0, 1
+        bgt $t0, $s1, fim_for
         j for
         
     fim_for:
