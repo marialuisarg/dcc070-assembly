@@ -3,11 +3,10 @@ printf:
 
 # receives a vector and it's size and prints it
 imprimeVetor:
-    addi $sp, $sp, -16
+    addi $sp, $sp, -12
     sw $ra, 0($sp)
     sw $s0, 4($sp)
     sw $s1, 8($sp)
-    sw $s2, 12($sp)
 
     li $t0, 0
     
@@ -20,11 +19,18 @@ imprimeVetor:
     #tam
     lb $s1, 0($t2)
 
+    # copia vetor para $a1
+    move $a1, $s0
+
     for:
+        # Loading %d on $a0
+        # %
         li $t3, 37
-        sb $a1, 0($t3)
+        sb $a0, 0($t3)
+        # d
         li $t3, 100
-        sb $a1, 1($t3)
+        sb $a0, 1($t3)
+        
         jal printf
         addi $t0, $t0, 1
         bgt $t0, $s1, fim_for
