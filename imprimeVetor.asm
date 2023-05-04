@@ -23,6 +23,8 @@ imprimeVetor:
     move $a1, $s0
 
     for:
+        # recalcula posição do vetor
+        add $t3, $t1, $t0
         # Loading %d on $a0
         # %
         li $t3, 37
@@ -30,7 +32,7 @@ imprimeVetor:
         # d
         li $t3, 100
         sb $a0, 1($t3)
-        
+
         jal printf
         addi $t0, $t0, 1
         bgt $t0, $s1, fim_for
@@ -43,4 +45,10 @@ imprimeVetor:
         sb $a1, 1($t1)
         jal printf
         
+.data 
+    vet: .byte 1,2,3,4,5,6,7,8,9,10
+    
+li $a1 10
+li $a0 vet($zero)
+jal imprimeVetor        
 
