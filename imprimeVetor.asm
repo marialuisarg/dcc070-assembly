@@ -1,3 +1,10 @@
+
+        
+li $a1 10
+li $a0 vet($zero)
+jal imprimeVetor        
+
+
 printf:
 
 
@@ -45,10 +52,4 @@ imprimeVetor:
         sb $a1, 1($t1)
         jal printf
         
-.data 
-    vet: .byte 1,2,3,4,5,6,7,8,9,10
-    
-li $a1 10
-li $a0 vet($zero)
-jal imprimeVetor        
 
