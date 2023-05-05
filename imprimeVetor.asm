@@ -1,7 +1,21 @@
+.data
+    vet: .space 12
+.text
+    li $s0, 5
+    li $s1, 6
+    li $s2, 3
 
-        
-li $a1 10
-li $a0 vet($zero)
+li $t0, 0
+
+sw $s0, vet($t0)
+    addi $t0, $t0, 4
+sw $s1, vet($t0)
+    addi $t0, $t0, 4
+sw $s2, vet($t0)
+
+
+li $a1, 10
+sw $a0, vet($zero)
 jal imprimeVetor        
 
 
