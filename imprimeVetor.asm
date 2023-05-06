@@ -46,11 +46,11 @@ imprimeVetor:
         # Loading %d on $a0
         # %
         li $t3, 37
-        sw $a0, 0($t3)
+        sb $a0, 0($t3)
         # d
         li $t3, 100
-        sw $a0, 1($t3)
-
+        sb $a0, 1($t3)
+	
         jal printf
         addi $t0, $t0, 1
         bgt $t0, $s1, fim_for
