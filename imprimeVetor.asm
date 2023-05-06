@@ -31,13 +31,11 @@ imprimeVetor:
     li $t0, 0
     
     add $t1, $zero,$a0
-    add $t2, $zero,$a1
+    add $s1, $zero,$a1
 
     #vet
     lbu $s0, 0($t1)
 
-    #tam
-    lb $s1, 0($t2)
 
     # copia vetor para $a1
     move $a1, $s0
@@ -48,10 +46,10 @@ imprimeVetor:
         # Loading %d on $a0
         # %
         li $t3, 37
-        sb $a0, 0($t3)
+        sw $a0, 0($t3)
         # d
         li $t3, 100
-        sb $a0, 1($t3)
+        sw $a0, 1($t3)
 
         jal printf
         addi $t0, $t0, 1
@@ -60,9 +58,9 @@ imprimeVetor:
         
     fim_for:
         li $t1,92
-        sb $a1, 0($t1)
+        sw $a1, 0($t1)
         li $t1,110
-        sb $a1, 1($t1)
+        sw $a1, 1($t1)
         jal printf
         
     lw $ra, 0($sp)
