@@ -1,5 +1,5 @@
 .data
-    vet: .space 12
+    vet: .word 0,0,0
 .text
     li $s0, 5
     li $s1, 6
@@ -13,9 +13,8 @@ sw $s1, vet($t0)
     addi $t0, $t0, 4
 sw $s2, vet($t0)
 
-
-li $a1, 10
-sw $a0, vet($zero)
+la $a0, vet
+li $a1, 3
 jal imprimeVetor        
 
 
@@ -35,7 +34,7 @@ imprimeVetor:
     add $t2, $zero,$a1
 
     #vet
-    lb $s0, 0($t1)
+    lbu $s0, 0($t1)
 
     #tam
     lb $s1, 0($t2)
@@ -65,5 +64,11 @@ imprimeVetor:
         li $t1,110
         sb $a1, 1($t1)
         jal printf
+        
+    lw $ra, 0($sp)
+    lw $s0, 4($sp)
+    lw $s1, 8($sp)
+    addi $sp, $sp, 12
+    jr $ra
         
 
