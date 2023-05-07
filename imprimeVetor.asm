@@ -14,7 +14,7 @@ sw $s1, vet($t0)
 sw $s2, vet($t0)
 
 la $a0, vet
-li $a1, 12
+li $a1, 3
 jal imprimeVetor        
 
 
@@ -25,7 +25,7 @@ imprimeVetor:
     
     add $t1, $zero,$a0
     add $s1, $zero,$a1
-	
+    sll $s1, 4
     #vet
     lw $s0, 0($a0)
 
