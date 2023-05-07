@@ -14,7 +14,7 @@ sw $s1, vet($t0)
 sw $s2, vet($t0)
 
 la $a0, vet
-li $a1, 3
+li $a1, 12
 jal imprimeVetor        
 
 
@@ -30,23 +30,20 @@ imprimeVetor:
     lw $s0, 0($a0)
 
     for:
+    	add $t2,$t1,$t0
         # recalcula posição do vetor
-        add $t3, $t1, $t0
-  
-        sw $t3, 1($a0)
-        addi $v0, $zero, 1
-        addi $t0, $t0, 4
+    	lw $t3, ($t2)
         li $v0,1
+        move $a0, $t2
         syscall
+        addi $t0, $t0, 4
         bgt $t0, $s1, fim_for
         j for
         
     fim_for:
-        li $t1,92
-        sw $a1, 0($t1)
-        li $t1,110
-        sw $a1, 1($t1)
+        li $v0, 4
 
+        syscall
         
     jr $ra
         
