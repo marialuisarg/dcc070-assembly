@@ -1,5 +1,6 @@
 .data
-    vet: .word 0:3
+    vet: .word 0:2
+    nline: .asciiz "\n"
 .text
     li $s0, 4
     li $s1, 8
@@ -25,26 +26,24 @@ imprimeVetor:
     
     add $t1, $zero,$a0
     add $s1, $zero,$a1
-    sll $s1, 4
+    sll $s1,$s1, 2
     #vet
-    lw $s0, 0($a0)
+    lw $s0, 0($t1)
 
     for:
-    	add $t2,$t1,$t0
-        # recalcula posição do vetor
-    	lw $t3, ($t2)
+        addi $t0, $t0, 4
+        bgt $t0, $s1, fim_for
+    	lw $t2, 0($t1)
         li $v0,1
         move $a0, $t2
         syscall
-        addi $t0, $t0, 4
-        bgt $t0, $s1, fim_for
+        addi $t1,$t1, 4
         j for
         
     fim_for:
         li $v0, 4
-
+        la $a0, nline
         syscall
         
-    jr $ra
         
 
