@@ -10,3 +10,5 @@ Projeto para a disciplina DCC070 - Organização de Computadores
  - [ ] <b>troca()</b>
  - [ ] <b>ordenaVetor()</b>
  - [ ] <b>main()</b>
+
+### Em andamento
