@@ -3,5 +3,5 @@ Projeto para a disciplina DCC070 - Organização de Computadores
 
 ## Checklist
 ### Funções
- - [ ] <b>imprimeVetor</b>
- - [ ] <b>printf !!!!!!!!!!!</b>
+ - [ x ] <b>imprimeVetor</b>
+ - [ ]

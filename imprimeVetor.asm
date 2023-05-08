@@ -7,7 +7,6 @@
     li $s2, 12
     li $s3, 16
     li $s4, 20
-    li $s5, 60
 
 li $t0, 0
 
@@ -58,6 +57,12 @@ imprimeVetor:
         move $a0, $t2
         
         #printa
+        syscall
+        
+        #printa espaco em branco
+        li $a0, 32
+        li $v0, 11
+        
         syscall
         
         #incrementa posicao do vetor
