@@ -24,8 +24,8 @@ main:
     jal inicializaVetor
 
 inicializaVetor:
-    #prepara stack para 4 valores
-    addi $sp, $sp -16
+    #prepara stack para 5 valores
+    addi $sp, $sp -36
     sw $ra, 0($sp)
     sw $s0, 4($sp)
     sw $s1, 8($sp)
@@ -43,7 +43,17 @@ inicializaVetor:
     #tam - 1
     add $t0, $s1, -1
 
-    
+    li $s3, 47
+    li $s4, 97
+    li $s5, 337
+    li $s6, 3
+
+    sw $s3, 16($sp)
+    sw $s4, 20($sp)
+    sw $s5, 24($sp)
+    sw $s6, 28($sp)
+
+    jal valorAleatorio
 
     li $t1, 0
 
