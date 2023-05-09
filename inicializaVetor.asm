@@ -1,19 +1,10 @@
 .data
     vet: .word 0:100
     nline: .asciiz "\n"
-    msg: .asciiz "Digite um numero: "
 
 main:
-    ## imprime mensagem
-    li $v0, 4
-    la $a0, msg
-    syscall
-    ## le numero
-    li $v0, 5
-    syscall
-
     ## salva numero
-    add $a1, $v0, $zero
+    add $a1, 20, $zero
 
     #endereço de memoria do vetor
     la $a0, vet
