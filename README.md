@@ -12,3 +12,4 @@ Projeto para a disciplina DCC070 - Organização de Computadores
  - [ ] <b>main()</b>
 
 ### Em andamento
+ - valorAleatorio (Maria) 
