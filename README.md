@@ -13,3 +13,6 @@ Projeto para a disciplina DCC070 - Organização de Computadores
 
 ### Em andamento
  - valorAleatorio (Maria) 
+ - inicializaVetor (Nicolas)
+ - troca (Jonatas)
+ - ordenaVetor (Maria)
