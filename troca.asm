@@ -1,16 +1,19 @@
 .data
-    # vetor de 5 posicoes
+    # vetor de 5 caracteres
     vet: .word 0:4
     nline: .asciiz "\n"
+
 .text
-    # inicializa os valores que serao salvos no vetor
+    # inicializa os valores do vetor
     li $s0, 4
     li $s1, 8
     li $s2, 12
     li $s3, 16
     li $s4, 20
 
-# salva os valores no vetor
+# salva o endereco do vetor
+add $t0, $t0, $zero
+
 sw $s0, vet($t0)
     addi $t0, $t0, 4
 sw $s1, vet($t0)
@@ -21,40 +24,31 @@ sw $s3, vet($t0)
     addi $t0, $t0, 4
 sw $s4, vet($t0)
 
-addi $t0, $zero, 5
-sll $t0, $t0, 2
-
 la $a0, vet
-add $a1, $a0, $t0
-jal zeraVetor
+addi $a1, $a0, 4  # indice 1
+addi $a2, $a0, 8  # indice 2
+jal troca
 
-# saida do programa (syscall 10)
 li $v0, 10
 syscall
 
-zeraVetor:
+troca:
     # salva o endereco de retorno
     addi $sp, $sp, -4
     sw $ra, 0($sp)
 
+    add $t0, $zero, $a1   # t0 tem o indice da primeira posicao
+    lw $t1, ($t0)         # t1 tem o valor da primeira posicao
+    add $t0, $zero, $a2   # t0 tem o indice da segunda posicao
+    lw $t2, ($t0)         # t2 tem o valor da segunda posicao
+    beq $t1, $t2, end     # se os valores forem iguais, vai pro fim
+    sw $t1, ($t0)         # salva o valor da primeira posicao na segunda
+    add $t0, $zero, $a1   # t0 tem o indice da primeira posicao
+    sw $t2, ($t0)         # salva o valor da segunda posicao na primeira
+    j end
 
-    for_loop:
-        # compara o contador com o tamanho do vetor 
-        bge $a0, $a1, exit_loop
-
-        # zera o valor da posicao atual do vetor
-        sw $zero, 0($a0)
-
-        # vai pra pr?xima posicao do vetor
-        addi $a0, $a0, 4
-
-        # volta pro inicio do loop
-        j for_loop
-
-    exit_loop:
-        # restaura o endereco de retorno em $ra
+    end:
+        # recupera o endereco de retorno
         lw $ra, 0($sp)
         addi $sp, $sp, 4
-
-        # sai da funcao
         jr $ra
