@@ -73,6 +73,6 @@ imprimeVetor:
         li $v0, 4
         la $a0, nline
         syscall
-        
+        jr $ra
         
 
