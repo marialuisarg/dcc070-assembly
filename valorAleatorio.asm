@@ -3,7 +3,7 @@
 .text	
 	.main:
 		#inserindo valores para a,b,c,d,e
-		#assumindo a = $t0, b = $t1, c = $t2, d = $t3, e = $t4 (valores aleatorios para teste da função)
+		#assumindo a = $s0, b = $s1, c = $s2, d = $s3, e = $s4 (valores aleatorios para teste da função)
 		li $s0, 10
 		li $s1, 3
 		li $s2, 2
@@ -11,12 +11,12 @@
 		li $s4, 1
 		
 		#passando os argumentos
-		move $a0, $s0       # 0($sp) reservado na pilha
-		move $a1, $s1       # 4($sp) reservado na pilha
-		move $a2, $s2       # 8($sp) reservado na pilha
-		move $a3, $s3       # 12($sp) reservado na pilha
-		add  $sp, $sp, -20
-		sw   $s4, 16($sp)   # armazena o 5o argumento na pilha
+		move $a0, $s0       # passa s0 como primeiro argumento
+		move $a1, $s1       # passa s1 como segundo argumento
+		move $a2, $s2       # passa s2 como terceiro argumento
+		move $a3, $s3       # passa s3 como quarto argumento
+		add  $sp, $sp, -4
+		sw   $s4, 0($sp)   # armazena o 5o argumento na pilha
 		
 		jal  valorAleatorio
 		jal  FIM
