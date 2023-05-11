@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/maria/OneDrive/Documentos/UFJF/assembly-dcc070",
-      "program": "c:/Users/maria/OneDrive/Documentos/UFJF/assembly-dcc070/build/Debug/outDebug",
+      "cwd": "c:/Users/Jonatas/Documents/OC/assembly-dcc070",
+      "program": "c:/Users/Jonatas/Documents/OC/assembly-dcc070/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
