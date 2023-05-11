@@ -52,7 +52,8 @@ zeraVetor:
 
     for_loop:
         # compara o contador com o tamanho do vetor 
-        bge $t0, $s1, exit_loop
+        slt $t1, $t0, $s1
+        beq $t1, $zero, exit_loop
 
         # zera o valor da posicao atual do vetor
         sw $zero, 0($a0)
