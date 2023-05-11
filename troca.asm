@@ -25,16 +25,8 @@ addi $t0, $zero, 5
 sll $t0, $t0, 2
 
 la $a0, vet
-li $a1, 5
-jal imprimeVetor
-
-la $a0, vet
 add $a1, $a0, $t0
 jal zeraVetor
-
-la $a0, vet
-li $a1, 5
-jal imprimeVetor
 
 # saida do programa (syscall 10)
 li $v0, 10
@@ -63,56 +55,6 @@ zeraVetor:
         # restaura o endereco de retorno em $ra
         lw $ra, 0($sp)
         addi $sp, $sp, 4
-
-        # sai da funcao
-        jr $ra
-
-imprimeVetor:
-    # contador do for
-    li $t0, 0
-    
-    #$t1 mantem o indice do vetor
-    add $t1, $zero,$a0
-    
-    #tamanho do vetor em $s1
-    add $s1, $zero,$a1
-    
-    # multiplica por 4 para a quantidade de bytes
-    sll $s1,$s1, 2
-
-    for:
-    	#incrementa o indice
-        addi $t0, $t0, 4
-        
-        #checa condicao de parada
-        bgt $t0, $s1, fim_for
-        
-        #carrega valor localizado no vetor
-    	lw $t2, 0($t1)
-    	
-    	#prepara o print
-        li $v0,1
-        
-        #carrega valor no registrador $a0
-        move $a0, $t2
-        
-        #printa
-        syscall
-        
-        #printa espaco em branco
-        li $a0, 32
-        li $v0, 11
-        
-        syscall
-        
-        #incrementa posicao do vetor
-        addi $t1,$t1, 4
-        j for
-        
-    fim_for:
-        li $v0, 4
-        la $a0, nline
-        syscall
 
         # sai da funcao
         jr $ra
