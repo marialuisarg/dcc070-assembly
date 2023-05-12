@@ -14,33 +14,30 @@
 
     jal inicializaVetor
     move $t0, $a0
-
     li $v0, 10
     syscall
 
 inicializaVetor:
     #caso trivial, tam =0
-    bgt	$zero, $a1, end
+    li $t3, 0
+    bgt $t3, $s1, end
 
     #prepara stack para 5 valores
     addi $sp, $sp -24
     sw $ra, 0($sp)
-    sw $s0, 4($sp)
-    sw $s1, 8($sp)
-    sw $s2, 12($sp)
+    
  
     #carrega valores em registradores s
     add $s0, $zero, $a0
     add $s1 ,$zero, $a1
     add $s2, $zero, $a2
-
-
-    #bytes do vetor
-    sll $s1, $s1, 2
     
-    #tam - 1
-    add $t0, $s1, -4
-
+    
+    sw $s0, 4($sp)
+    sw $s1, 8($sp)
+    sw $s2, 12($sp)
+            
+    #carrega argumentos de valorAleatorio
     move $a0, $s2
     li $a1, 47
     li $a2, 97
@@ -52,7 +49,14 @@ inicializaVetor:
 
     jal valorAleatorio
     move $t2, $v0
-
+    
+    #subtrai tam-1 
+    addi $s1, $s1, -1
+    
+    #carrega bytes do vetor
+    add $t0, $zero, $s1
+    sll $t0, $t0, 2
+    
     #vai para o indice tam -1
     add $s0, $s0, $t0
 
@@ -61,7 +65,7 @@ inicializaVetor:
 
     #carrega argumentos novamente
     add $a0, $zero, $s0
-    add $a1, $zero, $t0
+    add $a1, $zero, $s1
     add $a2, $zero, $t2
 
     #salva novoValor
@@ -71,6 +75,10 @@ inicializaVetor:
     jal inicializaVetor
 end:
     li $a0, 0
+    lw $ra, 0($sp)
+    #desaloca stack
+    addi $sp, $sp, 24
+    
     jr $ra
 
 valorAleatorio:
