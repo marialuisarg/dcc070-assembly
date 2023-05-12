@@ -6,11 +6,10 @@ Projeto para a disciplina DCC070 - Organização de Computadores
  - [x] <b>zeraVetor()</b>
  - [x] <b>imprimeVetor()</b>
  - [x] <b>valorAleatorio()</b>
- - [ ] <b>inicializaVetor()</b>
+ - [x] <b>inicializaVetor()</b>
  - [x] <b>troca()</b>
  - [ ] <b>ordenaVetor()</b>
  - [ ] <b>main()</b>
 
 ### Em andamento
- - inicializaVetor (Nicolas)
  - ordenaVetor (Maria)
