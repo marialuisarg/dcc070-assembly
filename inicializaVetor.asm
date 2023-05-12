@@ -1,10 +1,10 @@
 .data
-    vet: .word 0:100
+    vet: .word 0:39
     nline: .asciiz "\n"
-
+.text
 .main:
     ## salva numero
-    add $a1, 20, $zero
+    addi $a1, $zero,20
 
     #endereço de memoria do vetor
     la $a0, vet
@@ -13,7 +13,7 @@
     li $a2, 5
 
     jal inicializaVetor
-    li $t0, $a0
+    move $t0, $a0
 
     li $v0, 10
     syscall
@@ -28,7 +28,8 @@ inicializaVetor:
     sw $s0, 4($sp)
     sw $s1, 8($sp)
     sw $s2, 12($sp)
-
+ 
+    #carrega valores em registradores s
     add $s0, $zero, $a0
     add $s1 ,$zero, $a1
     add $s2, $zero, $a2
@@ -36,7 +37,7 @@ inicializaVetor:
 
     #bytes do vetor
     sll $s1, $s1, 2
-
+    
     #tam - 1
     add $t0, $s1, -4
 
@@ -52,9 +53,13 @@ inicializaVetor:
     jal valorAleatorio
     move $t2, $v0
 
-    #salva valor aleatorio
-    sw $s0, 0($t0)
+    #vai para o indice tam -1
+    add $s0, $s0, $t0
 
+    #salva valor aleatorio
+    sw $t2, 0($s0)
+
+    #carrega argumentos novamente
     add $a0, $zero, $s0
     add $a1, $zero, $t0
     add $a2, $zero, $t2
