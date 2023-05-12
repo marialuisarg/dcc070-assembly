@@ -4,7 +4,7 @@
 .text
 .main:
     ## salva numero
-    addi $a1, $zero,20
+    li $a1, 20
 
     #endereÃ§o de memoria do vetor
     la $a0, vet
@@ -13,29 +13,38 @@
     li $a2, 5
 
     jal inicializaVetor
-    move $t0, $a0
+    #copia valores de retorno
+    move $t0, $v0
+    move $t1, $v1
+    
+    #soma retornos
+    add $t3, $t1, $t0
+    li $v0, 1
+    add $a0, $t3, $zero
+    syscall
+    
     li $v0, 10
     syscall
 
 inicializaVetor:
-    #caso trivial, tam =0
-    li $t3, 0
-    bgt $t3, $s1, end
-
+  
     #prepara stack para 5 valores
     addi $sp, $sp -24
     sw $ra, 0($sp)
     
- 
     #carrega valores em registradores s
     add $s0, $zero, $a0
     add $s1 ,$zero, $a1
     add $s2, $zero, $a2
     
-    
+    #salva valores na stack
     sw $s0, 4($sp)
     sw $s1, 8($sp)
     sw $s2, 12($sp)
+    
+    #caso trivial, tam =0
+    li $t3, 0
+    bgt $t3, $s1, end
             
     #carrega argumentos de valorAleatorio
     move $a0, $s2
@@ -48,7 +57,7 @@ inicializaVetor:
     sw $s4, 16($sp)
 
     jal valorAleatorio
-    move $t2, $v0
+    move $t2, $v1
     
     #subtrai tam-1 
     addi $s1, $s1, -1
@@ -74,8 +83,15 @@ inicializaVetor:
 
     jal inicializaVetor
 end:
-    li $a0, 0
+   #carrega caso trivial
+    li $v0, 0
+    
+    #recupera endereço de retorno
     lw $ra, 0($sp)
+    
+    #recupera somatorio
+    add $v1, $zero, $s5
+    
     #desaloca stack
     addi $sp, $sp, 24
     
