@@ -1,16 +1,18 @@
 .data
-    vet: .word 0:39
     nline: .asciiz "\n"
+    SIZE: .word 20
+    vet: .word 0:19
 .text
 .main:
-    ## salva numero
-    li $a1, 20
-
+    
     #endereço de memoria do vetor
     la $a0, vet
 
+    #tamanho do vetor
+    li $a1, SIZE
+
     #ultimo valor
-    li $a2, 5
+    li $a2, 71
 
     jal inicializaVetor
     #copia valores de retorno
@@ -19,14 +21,40 @@
     
     #soma retornos
     add $t3, $t1, $t0
+    add $s6, $zero, $t3
     li $v0, 1
     add $a0, $t3, $zero
     syscall
     
+    #imprime o vetor
     la $a0, vet
-    li $a1, 20
+    li $a1, SIZE
     
     jal imprimeVetor
+
+    jal ordenaVetor
+
+    #carrega endereço da primeira posicao do vetor
+    la $t0, vet
+
+    #carrega endereco da ultima posicao do vetor
+    la $t1, vet
+
+    add $t3, $zero, SIZE
+    sll $t3, $t3, 2
+    add $t1, $t1, $t3
+
+    move $a0, $t0
+    move $a1, $t1
+
+    jal zeraVetor
+
+    jal imprimeVetor
+
+    #imprime soma
+    li $v0, 1
+    add $a0, $s6, $zero
+    syscall
     
     li $v0, 10
     syscall
