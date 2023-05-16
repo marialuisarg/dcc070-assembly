@@ -1,15 +1,23 @@
+# Trabalho de Organização de Computadores (DCC070 - 2023.1)
+
+# Jonatas Dias Machado Costa
+# Maria Luísa Riolino Guimarães
+# Nicolas Soares Martins
+
 .data
     vet: .word 0:19
 .text
 .eqv SIZE 20
 .eqv nline 10
+
 .main:
+
     #endereço de memoria do vetor
     la $a0, vet
 
     #tamanho do vetor
     li $a1, SIZE
-    
+
     #ultimo valor
     li $a2, 71
 
@@ -17,25 +25,25 @@
     #copia valores de retorno
     move $t0, $v0
     move $t1, $v1
-    
+
     #soma retornos
     add $t3, $t1, $t0
     add $s6, $zero, $t3
     #li $v0, 1
     #add $a0, $t3, $zero
     #syscall
-    
+
     #imprime o vetor
     la $a0, vet
     li $a1, SIZE
-    
+
     jal imprimeVetor
 
     la $a0, vet
     li $a1, SIZE
 
     jal ordenaVetor
-    
+
     la $a0, vet
     li $a1, SIZE
 
@@ -46,20 +54,20 @@
 
     li $t3, SIZE
     sll $t3, $t3, 2
-    
+
     #carrega ultima posicao do vetor
     add $t1, $t0, $t3
 
     move $a0, $t0
     move $a1, $t1
-    
+
     jal zeraVetor
 
     la $a0, vet
     li $a1, SIZE
 
     jal imprimeVetor
-    
+
     #imprime Soma: 
     li $v0, 11
     
@@ -100,7 +108,7 @@
     syscall
 
 inicializaVetor:
-  
+
     #prepara stack para 5 valores
     addi $sp, $sp -24
     sw $ra, 0($sp)
@@ -139,7 +147,7 @@ inicializaVetor:
     add $t0, $zero, $s1
     sll $t0, $t0, 2
     
-    #vai para o indice tam -1
+    #vai para o indice tam-1
     add $s0, $s0, $t0
 
     #salva valor aleatorio
@@ -158,11 +166,12 @@ inicializaVetor:
     sw $s5, 20($sp)
    
     jal inicializaVetor
+
 end:
-   #carrega caso trivial
+    #carrega caso trivial
     li $v0, 0
     
-    #recupera endere�o de retorno
+    #recupera endereço de retorno
     lw $ra, 0($sp)
     
     #recupera somatorio
@@ -174,6 +183,7 @@ end:
     jr $ra
 
 valorAleatorio:
+
 		mult 	$a0, $a1        # a * b
 		mflo 	$t0
 		add 	$t1, $t0, $a2   # a * b + c
@@ -183,8 +193,8 @@ valorAleatorio:
 	
 		jr      $ra             # retorna 
 		
-# recebe um vetor e printa
 imprimeVetor:
+
     # contador do for
     li $t0, 0
     
@@ -246,31 +256,31 @@ ordenaVetor:
 	move $s0, $zero		# i = 0
 	
 	for_i:
-		subi $t0, $s3, 1		# $t0 = n-1
+		subi $t0, $s3, 1		    # $t0 = n-1
 		bge $s0, $t0, fim_for_i		# testa condição de parada (se i >= n-1, vai para fim_for_i)
 		
-		move $t1, $s0			# $t1 = min_idx = i
+		move $t1, $s0			    # $t1 = min_idx = i
 		
-		addi $s1, $s0, 1		# j = i + 1
+		addi $s1, $s0, 1		    # j = i + 1
 		
 		for_j:
 			bge $s1, $s3, fim_for_j 	# testa condição de parada (j < n)
 			
-			sll $t2, $s1, 2			# $t2 = j * 4
-			add $t3, $s2, $t2		# $t3 = &vet[j]
-			lw  $t4, 0($t3)			# $t4 = vet[j]
+			sll $t2, $s1, 2			    # $t2 = j * 4
+			add $t3, $s2, $t2		    # $t3 = &vet[j]
+			lw  $t4, 0($t3)			    # $t4 = vet[j]
 			
-			sll $t5, $t1, 2			# $t5 = min_idx * 4
-			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
-			lw  $t7, 0($t6)			# $t7 = vet[min_idx]
+			sll $t5, $t1, 2			    # $t5 = min_idx * 4
+			add $t6, $s2, $t5		    # $t6 = &vet[min_idx]
+			lw  $t7, 0($t6)			    # $t7 = vet[min_idx]
 			
-			move $t8, $s1			# $t8 = j
-			addi $s1, $s1, 1		# j++
+			move $t8, $s1		    	# $t8 = j
+			addi $s1, $s1, 1		    # j++
 			
 			bge $t4, $t7, for_j 		# se (vet[j] >= vet[min_idx]), volta pro inicio do loop
-			move $t1, $t8			# min_idx = j
+			move $t1, $t8			    # min_idx = j
 			
-			j for_j				# vai pro inicio do for_j
+			j for_j				        # vai pro inicio do for_j
 			
 		fim_for_j:
 			move $t8, $s0			# $t8 = i
@@ -285,11 +295,11 @@ ordenaVetor:
 			sll $t5, $t1, 2			# $t5 = min_idx * 4
 			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
 			
-			move $a1, $t6
-			move $a2, $t3
+			move $a1, $t6           # $a1 = &vet[min_idx]
+			move $a2, $t3           # $a2 = &vet[i]
 			
-			jal troca			# troca(&vet[min_idx], &vet[i])
-			j for_i				# vai para for_i (loop)
+			jal troca			    # troca(&vet[min_idx], &vet[i])
+			j for_i				    # vai para for_i (loop)
 		
 	fim_for_i:
 		lw $s0, 0($sp)		# restaura $s0
@@ -298,20 +308,22 @@ ordenaVetor:
 		lw $s3, 12($sp)		# restaura $s3				
 		lw $ra, 16($sp)		# restaura $ra
 		addi $sp, $sp, 20	# ajusta a pilha		
-        	jr $ra
+        jr $ra              # retorna
+
 troca:
+
     # salva o endereco de retorno
     addi $sp, $sp, -4
     sw $ra, 0($sp)
 
-    add $t0, $zero, $a1   # t0 tem o indice da primeira posicao
-    lw $t1, ($t0)         # t1 tem o valor da primeira posicao
-    add $t0, $zero, $a2   # t0 tem o indice da segunda posicao
-    lw $t2, ($t0)         # t2 tem o valor da segunda posicao
+    add $t0, $zero, $a1         # t0 tem o indice da primeira posicao
+    lw $t1, ($t0)               # t1 tem o valor da primeira posicao
+    add $t0, $zero, $a2         # t0 tem o indice da segunda posicao
+    lw $t2, ($t0)               # t2 tem o valor da segunda posicao
     beq $t1, $t2, end_troca     # se os valores forem iguais, vai pro fim
-    sw $t1, ($t0)         # salva o valor da primeira posicao na segunda
-    add $t0, $zero, $a1   # t0 tem o indice da primeira posicao
-    sw $t2, ($t0)         # salva o valor da segunda posicao na primeira
+    sw $t1, ($t0)               # salva o valor da primeira posicao na segunda
+    add $t0, $zero, $a1         # t0 tem o indice da primeira posicao
+    sw $t2, ($t0)               # salva o valor da segunda posicao na primeira
     j end_troca
 
     end_troca:
