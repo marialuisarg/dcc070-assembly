@@ -1,7 +1,7 @@
-# Trabalho de Organização de Computadores (DCC070 - 2023.1)
+# Trabalho de Organizacao de Computadores (DCC070 - 2023.1)
 
 # Jonatas Dias Machado Costa
-# Maria Luísa Riolino Guimarães
+# Maria Luisa Riolino Guimaraes
 # Nicolas Soares Martins
 
 .data
@@ -12,7 +12,7 @@
 
 .main:
 
-    #endereço de memoria do vetor
+    #endereco de memoria do vetor
     la $a0, vet
 
     #tamanho do vetor
@@ -49,7 +49,7 @@
 
     jal imprimeVetor
 
-    #carrega endereço da primeira posicao do vetor
+    #carrega endereco da primeira posicao do vetor
     la $t0, vet
 
     li $t3, SIZE
@@ -171,7 +171,7 @@ end:
     #carrega caso trivial
     li $v0, 0
     
-    #recupera endereço de retorno
+    #recupera endereco de retorno
     lw $ra, 0($sp)
     
     #recupera somatorio
@@ -184,14 +184,14 @@ end:
 
 valorAleatorio:
 
-		mult 	$a0, $a1        # a * b
-		mflo 	$t0
-		add 	$t1, $t0, $a2   # a * b + c
-		div 	$t1, $a3        # (a * b + c) % d
-		mfhi 	$t2
-		sub 	$v1, $t2, $s4   # (a * b + c) % d - e
+	mult 	$a0, $a1        # a * b
+	mflo 	$t0
+	add 	$t1, $t0, $a2   # a * b + c
+	div 	$t1, $a3        # (a * b + c) % d
+	mfhi 	$t2
+	sub 	$v1, $t2, $s4   # (a * b + c) % d - e
 	
-		jr      $ra             # retorna 
+	jr      $ra             # retorna 
 		
 imprimeVetor:
 
@@ -256,31 +256,31 @@ ordenaVetor:
 	move $s0, $zero		# i = 0
 	
 	for_i:
-		subi $t0, $s3, 1		    # $t0 = n-1
-		bge $s0, $t0, fim_for_i		# testa condição de parada (se i >= n-1, vai para fim_for_i)
+		subi $t0, $s3, 1		# $t0 = n-1
+		bge $s0, $t0, fim_for_i		# testa condicao de parada (se i >= n-1, vai para fim_for_i)
 		
-		move $t1, $s0			    # $t1 = min_idx = i
+		move $t1, $s0			# $t1 = min_idx = i
 		
-		addi $s1, $s0, 1		    # j = i + 1
+		addi $s1, $s0, 1		# j = i + 1
 		
 		for_j:
-			bge $s1, $s3, fim_for_j 	# testa condição de parada (j < n)
+			bge $s1, $s3, fim_for_j 	# testa condicao de parada (j < n)
 			
-			sll $t2, $s1, 2			    # $t2 = j * 4
-			add $t3, $s2, $t2		    # $t3 = &vet[j]
-			lw  $t4, 0($t3)			    # $t4 = vet[j]
+			sll $t2, $s1, 2			# $t2 = j * 4
+			add $t3, $s2, $t2		# $t3 = &vet[j]
+			lw  $t4, 0($t3)			# $t4 = vet[j]
 			
-			sll $t5, $t1, 2			    # $t5 = min_idx * 4
-			add $t6, $s2, $t5		    # $t6 = &vet[min_idx]
-			lw  $t7, 0($t6)			    # $t7 = vet[min_idx]
+			sll $t5, $t1, 2			# $t5 = min_idx * 4
+			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
+			lw  $t7, 0($t6)			# $t7 = vet[min_idx]
 			
-			move $t8, $s1		    	# $t8 = j
-			addi $s1, $s1, 1		    # j++
+			move $t8, $s1			# $t8 = j
+			addi $s1, $s1, 1		# j++
 			
 			bge $t4, $t7, for_j 		# se (vet[j] >= vet[min_idx]), volta pro inicio do loop
-			move $t1, $t8			    # min_idx = j
+			move $t1, $t8			# min_idx = j
 			
-			j for_j				        # vai pro inicio do for_j
+			j for_j				# vai pro inicio do for_j
 			
 		fim_for_j:
 			move $t8, $s0			# $t8 = i
@@ -289,17 +289,17 @@ ordenaVetor:
 			
 			# passa &vet[i] e &vet[min_idx] como argumentos para troca
 			
-			sll $t2, $t8, 2			# $t2 = i * 4
-			add $t3, $s2, $t2		# $t3 = &vet[i]
+			sll $t2, $t8, 2		# $t2 = i * 4
+			add $t3, $s2, $t2	# $t3 = &vet[i]
 			
-			sll $t5, $t1, 2			# $t5 = min_idx * 4
-			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
+			sll $t5, $t1, 2		# $t5 = min_idx * 4
+			add $t6, $s2, $t5	# $t6 = &vet[min_idx]
 			
 			move $a1, $t6           # $a1 = &vet[min_idx]
 			move $a2, $t3           # $a2 = &vet[i]
 			
-			jal troca			    # troca(&vet[min_idx], &vet[i])
-			j for_i				    # vai para for_i (loop)
+			jal troca		# troca(&vet[min_idx], &vet[i])
+			j for_i			# vai para for_i (loop)
 		
 	fim_for_i:
 		lw $s0, 0($sp)		# restaura $s0
@@ -308,7 +308,7 @@ ordenaVetor:
 		lw $s3, 12($sp)		# restaura $s3				
 		lw $ra, 16($sp)		# restaura $ra
 		addi $sp, $sp, 20	# ajusta a pilha		
-        jr $ra              # retorna
+		jr $ra             	# retorna
 
 troca:
 
