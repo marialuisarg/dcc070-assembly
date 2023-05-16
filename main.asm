@@ -4,13 +4,12 @@
     vet: .word 0:19
 .text
 .main:
-    
     #endereço de memoria do vetor
     la $a0, vet
 
     #tamanho do vetor
-    li $a1, SIZE
-
+    lw $a1, SIZE($zero)
+    
     #ultimo valor
     li $a2, 71
 
@@ -22,32 +21,37 @@
     #soma retornos
     add $t3, $t1, $t0
     add $s6, $zero, $t3
-    li $v0, 1
-    add $a0, $t3, $zero
-    syscall
+    #li $v0, 1
+    #add $a0, $t3, $zero
+    #syscall
     
     #imprime o vetor
     la $a0, vet
-    li $a1, SIZE
+    lw $a1, SIZE($zero)
     
     jal imprimeVetor
 
-    jal ordenaVetor
+    la $a0, vet
+    lw $a1, SIZE($zero)
+
+    # jal ordenaVetor
 
     #carrega endereço da primeira posicao do vetor
     la $t0, vet
 
-    #carrega endereco da ultima posicao do vetor
-    la $t1, vet
-
-    add $t3, $zero, SIZE
+    lw $t3, SIZE($zero)
     sll $t3, $t3, 2
-    add $t1, $t1, $t3
+    
+    #carrega ultima posicao do vetor
+    add $t1, $t0, $t3
 
     move $a0, $t0
     move $a1, $t1
 
     jal zeraVetor
+
+    la $a0, vet
+    lw $a1, SIZE($zero)
 
     jal imprimeVetor
 
@@ -107,6 +111,8 @@ inicializaVetor:
 
     #volta o indice	
     sub $s0, $s0, $t0
+    
+    srl $t0, $t0, 2
     		
     #carrega argumentos novamente
     add $a0, $zero, $s0
@@ -118,7 +124,7 @@ inicializaVetor:
     #salva novoValor
     add $s5, $s5, $t2
     sw $s5, 20($sp)
-
+   
     jal inicializaVetor
 end:
    #carrega caso trivial
@@ -156,16 +162,18 @@ imprimeVetor:
     #tamanho do vetor em $s1
     add $s1, $zero,$a1
     
-    # multiplica por 4 para a quantidade de bytes
-    sll $s1,$s1, 2
 
     for:
+    	# multiplica por 4 para a quantidade de bytes
+    	sll $s1,$s1, 2
+    		
     	#incrementa o indice
         addi $t0, $t0, 4
         
         #checa condicao de parada
         bgt $t0, $s1, fim_for
         
+        srl $s1, $s1, 2
         #carrega valor localizado no vetor
     	lw $t2, 0($t1)
     	
@@ -189,6 +197,7 @@ imprimeVetor:
         j for
         
     fim_for:
+        srl $s1, $s1,2
         li $v0, 4
         la $a0, nline
         syscall
