@@ -35,6 +35,11 @@
     li $a1, SIZE
 
     jal ordenaVetor
+    
+    la $a0, vet
+    li $a1, SIZE
+
+    jal imprimeVetor
 
     #carrega endereço da primeira posicao do vetor
     la $t0, vet
@@ -70,9 +75,9 @@ inicializaVetor:
     sw $ra, 0($sp)
     
     #carrega valores em registradores s
-    add $s0, $zero, $a0
-    add $s1 ,$zero, $a1
-    add $s2, $zero, $a2
+    add $s0, $zero, $a0   #vetor
+    add $s1 ,$zero, $a1   #tamanho
+    add $s2, $zero, $a2   #ultimo valor
     
     #salva valores na stack
     sw $s0, 4($sp)
@@ -111,8 +116,7 @@ inicializaVetor:
 
     #volta o indice	
     sub $s0, $s0, $t0
-    
-    		
+    	
     #carrega argumentos novamente
     add $a0, $zero, $s0
     add $a1, $zero, $s1
@@ -159,18 +163,16 @@ imprimeVetor:
     add $t1, $zero,$a0
     
     #tamanho do vetor em $s1
-    add $s1, $zero,$a1
+    add $t3, $zero,$a1
     
-
-    for:
-    	# multiplica por 4 para a quantidade de bytes
-    	sll $s1,$s1, 2
-    		
+    # multiplica por 4 para a quantidade de bytes
+    sll $t3,$t3, 2
+    for:	
     	#incrementa o indice
         addi $t0, $t0, 4
         
         #checa condicao de parada
-        bgt $t0, $s1, fim_for
+        bgt $t0, $t3, fim_for
         
         #carrega valor localizado no vetor
     	lw $t2, 0($t1)
