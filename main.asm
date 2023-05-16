@@ -1,5 +1,6 @@
 .data
     vet: .word 0:19
+    soma: .ascii "Soma: "
 .text
 .eqv SIZE 20
 .eqv nline 10
@@ -59,7 +60,12 @@
     li $a1, SIZE
 
     jal imprimeVetor
-
+    
+    #imprime Soma: 
+    li $v0, 4
+    la $a0, soma
+    syscall
+    
     #imprime soma
     li $v0, 1
     add $a0, $s6, $zero
@@ -86,7 +92,7 @@ inicializaVetor:
     
     #caso trivial, tam =0
     li $t3, 0
-    bgt $t3, $s1, end
+    ble $s1, $t3, end
             
     #carrega argumentos de valorAleatorio
     move $a0, $s2
@@ -122,8 +128,6 @@ inicializaVetor:
     add $a1, $zero, $s1
     add $a2, $zero, $t2
     
-    
-
     #salva novoValor
     add $s5, $s5, $t2
     sw $s5, 20($sp)
@@ -167,6 +171,7 @@ imprimeVetor:
     
     # multiplica por 4 para a quantidade de bytes
     sll $t3,$t3, 2
+    
     for:	
     	#incrementa o indice
         addi $t0, $t0, 4
