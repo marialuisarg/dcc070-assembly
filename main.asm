@@ -229,7 +229,7 @@ ordenaVetor:
 			lw  $t4, 0($t3)			# $t4 = vet[j]
 			
 			sll $t5, $t1, 2			# $t5 = min_idx * 4
-			add $t6, $s2, $t2		# $t6 = &vet[min_idx]
+			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
 			lw  $t7, 0($t6)			# $t7 = vet[min_idx]
 			
 			move $t8, $s1			# $t8 = j
@@ -247,14 +247,14 @@ ordenaVetor:
 			
 			# passa &vet[i] e &vet[min_idx] como argumentos para troca
 			
-			sll $t2, $s0, 2			# $t2 = i * 4
+			sll $t2, $t8, 2			# $t2 = i * 4
 			add $t3, $s2, $t2		# $t3 = &vet[i]
 			
 			sll $t5, $t1, 2			# $t5 = min_idx * 4
-			add $t6, $s2, $t2		# $t6 = &vet[min_idx]
+			add $t6, $s2, $t5		# $t6 = &vet[min_idx]
 			
-			move $a0, $t6
-			move $a1, $t3
+			move $a1, $t6
+			move $a2, $t3
 			
 			jal troca			# troca(&vet[min_idx], &vet[i])
 			j for_i				# vai para for_i (loop)
