@@ -1,6 +1,5 @@
 .data
     vet: .word 0:19
-    soma: .ascii "Soma: "
 .text
 .eqv SIZE 20
 .eqv nline 10
@@ -62,14 +61,40 @@
     jal imprimeVetor
     
     #imprime Soma: 
-    li $v0, 4
-    la $a0, soma
+    li $v0, 11
+    
+    #S
+    li $a0, 83
     syscall
     
-    #imprime soma
+    #o
+    li $a0, 111
+    syscall
+    
+    #m
+    li $a0, 109
+    syscall
+    
+    #a
+    li $a0, 97
+    syscall
+    
+    #:
+    li $a0, 58
+    syscall
+    
+    #espaco em branco
+    li $a0, 32
+    syscall
+    
+    #imprime a soma em si
     li $v0, 1
     add $a0, $s6, $zero
     syscall
+    
+    #imprime \n
+    li $v0, 11
+    li $a1, nline
     
     li $v0, 10
     syscall
