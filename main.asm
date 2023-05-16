@@ -34,7 +34,7 @@
     la $a0, vet
     li $a1, SIZE
 
-    # jal ordenaVetor
+    jal ordenaVetor
 
     #carrega endereço da primeira posicao do vetor
     la $t0, vet
@@ -200,6 +200,73 @@ imprimeVetor:
         syscall
         jr $ra
 
+ordenaVetor:
+	
+	addi $sp, $sp, -20	# ajusta a pilha
+	sw $ra, 16($sp)		# salva $ra
+	sw $s3, 12($sp)		# salva $s3
+	sw $s2, 8($sp)		# salva $s2
+	sw $s1, 4($sp)		# salva $s1
+	sw $s0, 0($sp)		# salva $s0
+	
+	move $s2, $a0		# salva vetor em $s2
+	move $s3, $a1		# salva tamanho do vetor em $s3
+	move $s0, $zero		# i = 0
+	
+	for_i:
+		subi $t0, $s3, 1		# $t0 = n-1
+		bge $s0, $t0, fim_for_i		# testa condição de parada (se i >= n-1, vai para fim_for_i)
+		
+		move $t1, $s0			# $t1 = min_idx = i
+		
+		addi $s1, $s0, 1		# j = i + 1
+		
+		for_j:
+			bge $s1, $s3, fim_for_j 	# testa condição de parada (j < n)
+			
+			sll $t2, $s1, 2			# $t2 = j * 4
+			add $t3, $s2, $t2		# $t3 = &vet[j]
+			lw  $t4, 0($t3)			# $t4 = vet[j]
+			
+			sll $t5, $t1, 2			# $t5 = min_idx * 4
+			add $t6, $s2, $t2		# $t6 = &vet[min_idx]
+			lw  $t7, 0($t6)			# $t7 = vet[min_idx]
+			
+			move $t8, $s1			# $t8 = j
+			addi $s1, $s1, 1		# j++
+			
+			bge $t4, $t7, for_j 		# se (vet[j] >= vet[min_idx]), volta pro inicio do loop
+			move $t1, $t8			# min_idx = j
+			
+			j for_j				# vai pro inicio do for_j
+			
+		fim_for_j:
+			move $t8, $s0			# $t8 = i
+			addi $s0, $s0, 1		# i++
+			beq $t1, $t8, for_i		# se (min_idx == i), vai pro inicio do for_i
+			
+			# passa &vet[i] e &vet[min_idx] como argumentos para troca
+			
+			sll $t2, $s0, 2			# $t2 = i * 4
+			add $t3, $s2, $t2		# $t3 = &vet[i]
+			
+			sll $t5, $t1, 2			# $t5 = min_idx * 4
+			add $t6, $s2, $t2		# $t6 = &vet[min_idx]
+			
+			move $a0, $t6
+			move $a1, $t3
+			
+			jal troca			# troca(&vet[min_idx], &vet[i])
+			j for_i				# vai para for_i (loop)
+		
+	fim_for_i:
+		lw $s0, 0($sp)		# restaura $s0
+		lw $s1, 4($sp)		# restaura $s1
+		lw $s2, 8($sp)		# restaura $s2
+		lw $s3, 12($sp)		# restaura $s3				
+		lw $ra, 16($sp)		# restaura $ra
+		addi $sp, $sp, 20	# ajusta a pilha		
+        	jr $ra
 troca:
     # salva o endereco de retorno
     addi $sp, $sp, -4
@@ -247,8 +314,3 @@ zeraVetor:
 
         # sai da funcao
         jr $ra
-
-        
-
-
-    
