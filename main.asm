@@ -1,8 +1,8 @@
 .data
     vet: .word 0:19
-    nline: .asciiz "\n"
 .text
 .eqv SIZE 20
+.eqv nline 10
 .main:
     #endereço de memoria do vetor
     la $a0, vet
@@ -195,8 +195,8 @@ imprimeVetor:
         j for
         
     fim_for:
-        li $v0, 4
-        la $a0, nline
+        li $v0, 11
+        li $a0, nline
         syscall
         jr $ra
 
