@@ -1,14 +1,14 @@
 .data
-    nline: .asciiz "\n"
-    SIZE: .word 20
     vet: .word 0:19
+    nline: .asciiz "\n"
 .text
+.eqv SIZE 20
 .main:
     #endereço de memoria do vetor
     la $a0, vet
 
     #tamanho do vetor
-    lw $a1, SIZE($zero)
+    li $a1, SIZE
     
     #ultimo valor
     li $a2, 71
@@ -27,19 +27,19 @@
     
     #imprime o vetor
     la $a0, vet
-    lw $a1, SIZE($zero)
+    li $a1, SIZE
     
     jal imprimeVetor
 
     la $a0, vet
-    lw $a1, SIZE($zero)
+    li $a1, SIZE
 
     # jal ordenaVetor
 
     #carrega endereço da primeira posicao do vetor
     la $t0, vet
 
-    lw $t3, SIZE($zero)
+    li $t3, SIZE
     sll $t3, $t3, 2
     
     #carrega ultima posicao do vetor
@@ -47,11 +47,11 @@
 
     move $a0, $t0
     move $a1, $t1
-
+    
     jal zeraVetor
 
     la $a0, vet
-    lw $a1, SIZE($zero)
+    li $a1, SIZE
 
     jal imprimeVetor
 
@@ -112,7 +112,6 @@ inicializaVetor:
     #volta o indice	
     sub $s0, $s0, $t0
     
-    srl $t0, $t0, 2
     		
     #carrega argumentos novamente
     add $a0, $zero, $s0
@@ -173,7 +172,6 @@ imprimeVetor:
         #checa condicao de parada
         bgt $t0, $s1, fim_for
         
-        srl $s1, $s1, 2
         #carrega valor localizado no vetor
     	lw $t2, 0($t1)
     	
@@ -197,7 +195,6 @@ imprimeVetor:
         j for
         
     fim_for:
-        srl $s1, $s1,2
         li $v0, 4
         la $a0, nline
         syscall
