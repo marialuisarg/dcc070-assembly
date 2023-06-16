@@ -3,13 +3,13 @@ Projeto para a disciplina DCC070 - Organização de Computadores
 
 ## Checklist
 ### Funções
- - [x] <b>zeraVetor()</b>
- - [x] <b>imprimeVetor()</b>
+ - [ ] <b>zeraVetor()</b>
+ - [ ] <b>imprimeVetor()</b>
  - [x] <b>valorAleatorio()</b>
  - [x] <b>inicializaVetor()</b>
- - [x] <b>troca()</b>
+ - [ ] <b>troca()</b>
  - [ ] <b>ordenaVetor()</b>
  - [ ] <b>main()</b>
 
 ### Em andamento
- - ordenaVetor (Maria)
+
