@@ -235,6 +235,7 @@ ordenaVetor:
         addi    $s3, $s2, 1             # j = i + 1
         ordenaFor2:
             bge     $s3, $s1, ordenaFim2    # Se j >= n vai para ordenaFim2
+            nop
                     
             # Condicional dentro do lanço interno
             # Leitura do valor de vet[j]
@@ -268,8 +269,9 @@ ordenaVetor:
         jal     troca
         
         ordenaIfFim:
-        j       ordenaFor1              # Repete o laço externo
         addi    $s2, $s2, 1             # i++
+        j       ordenaFor1              # Repete o laço externo
+        nop
     
     ordenaFim1:
     # Libera espaço na pilha
