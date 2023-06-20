@@ -247,8 +247,9 @@ ordenaVetor:
             add     $t1, $s0, $t1           # $t1 = &vet[min_idx]
             lw      $t1, 0($t1)             # $t1 = vet[min_idx]
             
-            bge     $t0, $t1, sortIf1Fim    # Se vet[j] >= vet[min_idx] vai para sortIf1Fim
-            move    $s4, $s3                # min_idx = j                        
+            move    $s4, $s3                # min_idx = j
+            bge     $t0, $t1, sortIf1Fim    # Se vet[j] >= vet[min_idx] vai para sortIf1Fim    
+            nop                    
             
             sortIf1Fim:
             j       ordenaFor2              # Repete o laço interno
@@ -257,6 +258,7 @@ ordenaVetor:
         ordenaFim2:
         # Condicional após o laço interno
         beq     $s4, $s2, ordenaIfFim       # Se min_idx == i vai para ordenaIfFim
+        nop
         
         # Chama função troca
         sll     $t0, $s4, 2             # $t0 = min_idx * 4
@@ -264,7 +266,6 @@ ordenaVetor:
         sll     $t0, $s2, 2             # $t0 = i * 4
         add     $a1, $s0, $t0           # Segundo parâmetro: &vet[i]
         jal     troca
-        nop
         
         ordenaIfFim:
         j       ordenaFor1              # Repete o laço externo
@@ -292,17 +293,17 @@ troca:
     
     # Teste da condicional
     beq     $a0, $a1, trocaFim  # Se a == b vai para trocaFim
-    lw      $t0, 0($a0)     # $t0 = *a
-    # Troca de valores
     
+    # Troca de valores
+    lw      $t0, 0($a0)     # $t0 = *a    
     lw      $t1, 0($a1)     # $t1 = *b
     sw      $t1, 0($a0)     # *a = $t1
-    sw      $t0, 0($a1)     # *b = $t0
+    sw      $t0, 0($a1)     # *b = $t0   
     
     trocaFim:
     # Fim da função
     jr      $ra             # Retorna
-    nop                 
+    nop  
                                                                                                                                                                                                                                                           
 valorAleatorio:
     # Esta função é folha
