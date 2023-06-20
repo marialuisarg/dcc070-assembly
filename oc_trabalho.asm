@@ -10,20 +10,20 @@ main:
     
     # Inicializa variáveis locais
     move    $s0, $sp        # vet aponta para o início do vetor na pilha
-    li      $s1, 0          # soma = 0
+    
     
     # Chama a função inicializaVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
     li      $a2, 71         # Terceiro parâmetro: 71
     jal     inicializaVetor # Chama a função inicializaVetor
+    li      $s1, 0          # soma = 0
     move    $s1, $v0        # Guarda o retorno da função em soma
     
     # Chama a função imprimeVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
     jal     imprimeVetor    # Chama a função imprimeVetor
-    
     # Chama a função ordenaVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
@@ -296,7 +296,7 @@ troca:
     trocaFim:
     # Fim da função
     jr      $ra             # Retorna
-                      
+    nop                 
                                                                                                                                                                                                                                                           
 valorAleatorio:
     # Esta função é folha
