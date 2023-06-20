@@ -1,3 +1,7 @@
+# PROJETO 2 - Organizacao de Computadores (DCC070 - 2023.1)
+# Maria Luisa Riolino Guimaraes
+# Nicolas Soares Martins
+
 # Segmento de dados globais
 .data
     msgSoma:    .asciiz    "Soma: "
