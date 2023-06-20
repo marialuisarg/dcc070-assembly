@@ -23,25 +23,29 @@ main:
     move    $a0, $s0        # Primeiro parâmetro: vet
     jal     imprimeVetor    # Chama a função imprimeVetor
     li      $a1, 20         # Segundo parâmetro: SIZE
+    
     # Chama a função ordenaVetor
+    jal     ordenaVetor     # Chama a função ordenaVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
-    jal     ordenaVetor     # Chama a função ordenaVetor
     
     # Chama a função imprimeVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
     jal     imprimeVetor    # Chama a função imprimeVetor
+    nop
     
     # Chama a função zeraVetor
     move    $a0, $s0        # Primeiro parâmetro: &vet[0]
     addi    $a1, $s0, 80    # Segundo parâmetro: &vet[20]
     jal     zeraVetor       # Chama a função zeraVetor
+    nop
     
     # Chama a função imprimeVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
     jal     imprimeVetor    # Chama a função imprimeVetor
+    nop
     
     # Impressão em tela: printf("Soma: %d\n", soma);
     li      $v0, 4          # Código 4 para impressão de string
@@ -217,7 +221,6 @@ ordenaVetor:
     # Inicializa variáveis
     move    $s0, $a0        # Parâmetro vet salvo em $s0
     move    $s1, $a1        # Parâmetro n salvo em $s1
-    li      $s2, 0          # i = 0
     li      $s3, 0          # j = 0
     li      $s4, 0          # min_idx = 0
     
@@ -261,6 +264,7 @@ ordenaVetor:
         sll     $t0, $s2, 2             # $t0 = i * 4
         add     $a1, $s0, $t0           # Segundo parâmetro: &vet[i]
         jal     troca
+        nop
         
         ordenaIfFim:
         j       ordenaFor1              # Repete o laço externo
