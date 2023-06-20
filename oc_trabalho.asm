@@ -11,7 +11,6 @@ main:
     # Inicializa variáveis locais
     move    $s0, $sp        # vet aponta para o início do vetor na pilha
     
-    
     # Chama a função inicializaVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
@@ -22,8 +21,8 @@ main:
     
     # Chama a função imprimeVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
-    li      $a1, 20         # Segundo parâmetro: SIZE
     jal     imprimeVetor    # Chama a função imprimeVetor
+    li      $a1, 20         # Segundo parâmetro: SIZE
     # Chama a função ordenaVetor
     move    $a0, $s0        # Primeiro parâmetro: vet
     li      $a1, 20         # Segundo parâmetro: SIZE
@@ -72,14 +71,14 @@ zeraVetor:
     zeraLoop:
         bge    $a0, $a1, zeraFim    # Se inicio >= fim vai para zeraFim
         sw      $zero, 0($a0)       # Salva valor 0 no endereço apontado por inicio
-        addi    $a0, $a0, 4         # Incrementa inicio para a próxima posição
         j       zeraLoop            # Repete o laço
+        addi    $a0, $a0, 4         # Incrementa inicio para a próxima posição
     
     zeraFim:
 
     # Fim da função    
     jr      $ra             # Retorna
-    
+    nop
 
 imprimeVetor:
     # Esta função não é folha
