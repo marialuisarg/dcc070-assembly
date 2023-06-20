@@ -247,9 +247,9 @@ ordenaVetor:
             add     $t1, $s0, $t1           # $t1 = &vet[min_idx]
             lw      $t1, 0($t1)             # $t1 = vet[min_idx]
             
-            move    $s4, $s3                # min_idx = j
-            bge     $t0, $t1, sortIf1Fim    # Se vet[j] >= vet[min_idx] vai para sortIf1Fim    
-            nop                    
+            bge     $t0, $t1, sortIf1Fim    # Se vet[j] >= vet[min_idx] vai para sortIf1Fim 
+            nop 
+            move    $s4, $s3                # min_idx = j            
             
             sortIf1Fim:
             j       ordenaFor2              # Repete o laço interno
